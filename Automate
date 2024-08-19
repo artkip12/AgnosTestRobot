@@ -1,0 +1,30 @@
+*** Settings ***
+Library    SeleniumLibrary
+
+*** Variables ***
+${URL}        https://dev.app.agnoshealth.com/ai_dashboard/login/
+${BROWSER}    Chrome
+${EMAIL}      test@gmail.com
+${PASSWORD}   12345
+
+*** Test Cases ***
+TC_001 Login
+    Open Browser    ${URL}    ${BROWSER}    options=add_experimental_option("detach", True)
+    Input Text    id=Email    ${EMAIL}
+    Input Text    id=password    ${PASSWORD}
+    Wait Until Element Is Visible    xpath=//div[@class='css-16op8xu' and text()='Sign in']
+    Click Element    xpath=//div[@class='css-16op8xu' and text()='Sign in']
+TC_002 Download
+    Wait Until Element Is Visible   xpath=//div[@class='css-1w1598s' and text()='Download']
+    Click Element    xpath=//div[@class='css-1w1598s' and text()='Download']
+    Sleep    2 seconds
+    Wait Until Element Is Visible   xpath=//div[@class='css-15wzr3y' and text()='ยืนยัน']
+    Click Element    xpath=//div[@class='css-15wzr3y' and text()='ยืนยัน']
+    Sleep    2 seconds
+TC_003 Search
+    Wait Until Element Is Visible   xpath=//input[@placeholder='Patient name, Patient contact, Record ID, Record code']          
+    Input Text   xpath=//input[@placeholder='Patient name, Patient contact, Record ID, Record code']          4 
+    Click Element       xpath=//div[@class='css-1wbtzvc' and text()='In progress']
+    Sleep   3 seconds
+TC_004 Log out
+   Click Element       xpath=//div[@class='css-14a8myp'and text()='Log Out']
